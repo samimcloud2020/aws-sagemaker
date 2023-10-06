@@ -1,0 +1,4 @@
+how to know the Line for best Fit.
+
+1st go for Scatterplot.
+
