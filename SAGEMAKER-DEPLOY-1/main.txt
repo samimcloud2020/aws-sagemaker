@@ -1,0 +1,17 @@
+TEST:
+REQUEST BODY:
+
+{
+  "YearsExperience": 18.0
+}
+
+_____________________________________________________________________________
+INTREGATION REQUEST:
+
+MAPPING TEMPLATE:    
+
+application/json
+
+{ "body": $input.json('$') }
+-------------------------------------------------------------------------------
+api gw------> lambda
