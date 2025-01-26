@@ -22,3 +22,30 @@ lambda-----test
   "body": "{\"YearsExperience\": 15.0}"
 }
 ---------------------------------------------------------------------------------
+googole colab-----invoke
+
+import requests
+import json
+
+# API Gateway URL
+api_url = "https://hq2mcqxrwi.execute-api.us-east-1.amazonaws.com/prod/predict"
+
+# Input Data
+input_data = {"YearsExperience": 5.0}
+
+# Headers
+headers = {"Content-Type": "application/json"}
+
+# Make POST Request
+response = requests.post(api_url, data=json.dumps(input_data), headers=headers)
+
+# Handle Response
+if response.status_code == 200:
+    print("Prediction:", response.json())
+else:
+    print(f"Error: {response.status_code}, {response.text}")
+------------------------------------------------------------------------------------------------
+web browesr invoke
+
+https://<api-id>.execute-api.<region>.amazonaws.com/prod/predict?YearsExperience=5.0
+------------------------------------------------------------------------------------------
