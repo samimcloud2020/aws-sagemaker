@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Salary Prediction</h1>
+    <form id="predictionForm">
+        <label for="experience">Years of Experience:</label>
+        <input type="number" id="experience" name="experience" step="0.1" required>
+        <button type="submit">Predict Salary</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        const form = document.getElementById('predictionForm');
+        const resultDiv = document.getElementById('result');
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the form from refreshing the page
+            
+            const yearsExperience = document.getElementById('experience').value;
+            const apiUrl = "https://hq2mcqxrwi.execute-api.us-east-1.amazonaws.com/prod/predict";
+
+            try {
+                // Make a POST request to the API Gateway URL with the JSON body
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ YearsExperience: parseFloat(yearsExperience) }),
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status} - ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                const result = JSON.parse(data.body); // Parsing the nested JSON body
+                resultDiv.textContent = `Predicted Salary: ${result.PredictedSalary}`;
+            } catch (error) {
+                resultDiv.textContent = `Failed to get prediction: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>
