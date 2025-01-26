@@ -14,6 +14,10 @@ application/json
 
 { "body": $input.json('$') }
 -------------------------------------------------------------------------------
+$ curl -X POST https://hq2mcqxrwi.execute-api.us-east-1.amazonaws.com/prod/predict -H "Content-Type: application/json" -d '{"YearsExperience": 10.0}'  
+{"statusCode": 200, "body": "{\"YearsExperience\": 10.0, \"PredictedSalary\": 108596.984375}"}
+
+-----------------------------------------------------------------------------------------------------
 api gw------> lambda
 _________________________________________________________________________________
 lambda-----test
